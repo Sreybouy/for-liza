@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Liza</title>
+    <style>
+        :root {
+            --pink: #ff6b81;
+            --pink-light: #ffc6cf;
+            --cream: #fff7f2;
+            --purple: #a29bfe;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #ffe0ec, #e0d4fd);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            padding: 32px 20px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            margin-bottom: 8px;
+            color: #4a2c40;
+        }
+
+        p {
+            color: #5a3d52;
+            line-height: 1.6;
+        }
+
+        button {
+            border: none;
+            padding: 14px 28px;
+            border-radius: 30px;
+            background: var(--pink);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 6px 16px rgba(255, 107, 129, .4);
+            transition: transform .15s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px) scale(1.03);
+        }
+
+        .icon {
+            font-size: 3rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-16px);
+            }
+        }
+
+        .card {
+            width: 280px;
+            height: 200px;
+            perspective: 1200px;
+            margin-top: 20px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .card.open .card-inner {
+            transform: rotateY(-180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .card-front {
+            background: var(--pink);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .card-back {
+            background: var(--cream);
+            color: #4a2c40;
+            transform: rotateY(180deg);
+            font-size: .9rem;
+            overflow-y: auto;
+        }
+
+        .gallery {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 20px 4px;
+            max-width: 100%;
+        }
+
+        .polaroid {
+            flex: 0 0 auto;
+            width: 120px;
+            background: white;
+            padding: 8px 8px 20px;
+            border-radius: 4px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, .15);
+            transform: rotate(var(--r, 0deg));
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 2px;
+            background: var(--pink-light);
+        }
+
+        .polaroid span {
+            display: block;
+            font-size: .7rem;
+            margin-top: 6px;
+            color: #666;
+        }
+
+        .letter-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 140px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .1);
+            font-size: .95rem;
+            color: #4a2c40;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="screen active" id="screen-welcome">
+        <div class="icon">🌷</div>
+        <h1>Hey Liza</h1>
+        <p>I made you something small. No pressure at all — just wanted to share.</p>
+        <button onclick="goTo('screen-card')">Take a look</button>
+    </section>
+
+    <section class="screen" id="screen-card">
+        <h1>A Little Note</h1>
+        <div class="card" id="theCard" onclick="openCard()">
+            <div class="card-inner">
+                <div class="card-face card-front">Tap to open</div>
+                <div class="card-face card-back">
+                    I just think you're great, and I wanted to tell you that in a way
+                    that felt more thoughtful than a text. That's really it.
+                </div>
+            </div>
+        </div>
+        <button onclick="goTo('screen-gallery')">Next →</button>
+    </section>
+
+    <section class="screen" id="screen-gallery">
+        <h1>Moments I Liked</h1>
+        <p>A few times that stuck with me.</p>
+        <div class="gallery">
+            <div class="polaroid" style="--r:-4deg"><img src="images/IMG_2796.PNG" alt="photo 1">
+            </div>
+            <div class="polaroid" style="--r:3deg"><img src="images/IMG_2799.JPG" alt="photo 2">
+            </div>
+            <div class="polaroid" style="--r:-2deg"><img src="images/IMG_2800.JPG" alt="photo 3">
+            </div>
+            <div class="polaroid" style="--r:5deg"><img src="images/IMG_2795.PNG" alt="photo 4">
+            </div>
+        </div>
+    </section>
+    <script>
+        function goTo(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+        function openCard() {
+            document.getElementById('theCard').classList.add('open');
+        }
+    </script>
+
+</body>
+
+</html>
